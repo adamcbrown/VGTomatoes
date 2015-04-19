@@ -23,6 +23,11 @@ class ApplicationController < Sinatra::Base
     erb :index
   end
 
+  get '/game' do
+    @game=Game.find_by_id(params[:game_id])
+    erb :game
+  end
+
   get '/user' do
     @viewed_user=User.find_by_id(params[:id])
     if(@viewed_user==nil)
