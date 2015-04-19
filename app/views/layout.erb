@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+  <head>
+    <title>VGTomatos</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+  </head>
+  <body>
+    <div class="container">
+      <div class="row" id="top-bar">
+        <div class="col-xs-10">
+          <ul class="nav nav-pills">
+            <li role="presentation"><a href='/' style="white-space: nowrap" class='lg-text'>Welcome to VGTomatos</a>
+          </ul>
+        </div>
+
+        <div class="col-xs-2 right-text">
+          <% if user==nil %>
+            <br><br><a href="/login">Login</a>
+          <% else %>
+            <br>
+            <a href="/user?id=<%=user.id%>">Welcome, <%=user.username%></a>
+
+            <form action="/logout" method="POST" id="logout">
+              <a style="cursor: pointer" onclick="document.getElementById('logout').submit();">Logout</a>
+            </form>
+          <% end %>
+        </div>
+      </div>
+      
+
+        
+
+      <br><br>
+      <%=yield%>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+  </body>
+</html>

@@ -1,0 +1,14 @@
+.lg-text{
+  font-size: 3em;
+}
+
+#top-bar{
+  border-style: solid;
+  border-radius: 1em;
+  border-color: black;
+  background-color: lime;
+}
+
+.right-text{
+  text-align: right;
+}
