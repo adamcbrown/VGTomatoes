@@ -1,4 +1,5 @@
 require './config/environment'
 class Review < ActiveRecord::Base
-  belongs_to :user, :game
+  belongs_to :user
+  belongs_to :game
 end

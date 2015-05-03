@@ -1,10 +1,29 @@
 <div class="row">
-  <div class="col-xs-2"></div>
-  <div class="col-xs-3">
+  <div class="col-xs-4"></div>
+  <div class="col-xs-2">
     <img src=<%=@game.img_url%>>
   </div>
-  <div class="col-xs-5">
+  <div class="col-xs-6">
     <h3><%=@game.name%> (<%=@game.consoles.collect{|c| c.name}.join(", ")%>)</h3>
+    <h3><%="#{@game.rating}/5   -   #{scoreToText(@game.rating.round)}"%>
     <h5><%=@game.description%></h5>
   </div>
+</div>
+<br><br><br>
+<div class="row">
+  <div class="col-xs-3"></div>
+  <div class="col-xs-6 center-text">
+    <a href="/create_review?game=<%=@game.id%>">Write a Review</a>
+
+    <br>
+    <br>
+
+    <%@game.reviews.each do |review|%>
+      <div class="small-box" style="text-align: left;">
+        <h3><%="#{review.user.username}: #{scoreToText(review.rating)}"%></h3>
+        <p><%=review.description%></p>
+      </div>
+    <%end%>
+  </div>
+  <div class="col-xs-3"></div>
 </div>

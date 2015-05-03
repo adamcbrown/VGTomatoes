@@ -1,5 +1,13 @@
 This is for development purposes only
-<form>
-  Game Name:<input type="text" name="name">
-  Description:<input type="text-area" name="name">
+<form action="submit_game" method="POST">
+  Game Name: <input type="text" name="name"><br>
+  Description: <input type="text-area" name="description"><br>
+  Img: <input type="text" name="img"><br>
+  Release date: <input type="text" name="release_date"><br>
+  ESRB Rating: <input type="text" name="ESRB_rating"><br><br>
+  Consoles (Note only games that are the same and released at the same time should be conidered as the same game):<br>
+  <%@consoles.each do |console|%>
+    <input type="checkbox" name="<%="console-#{console.abbreviation}".gsub(" ","_")%>" value=<%=console.abbreviation%>><%=console.abbreviation%><br>
+  <%end%>
+  <input type="submit" value="Submit">
 </form>

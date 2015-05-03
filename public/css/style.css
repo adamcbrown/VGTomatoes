@@ -9,6 +9,30 @@
   background-color: lime;
 }
 
+.small-box{
+  border-style: solid;
+  border-radius: 0.2em;
+  border-color: black;
+  padding: 0.5em;
+}
+
 .right-text{
   text-align: right;
+}
+
+.rating-text{
+  font-size: 1.5em;
+  text-align: center;
+}
+
+.center-text{
+  text-align: center;
+}
+
+textarea {
+  resize: none;
+  width: 100%;
+  -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+  -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+  box-sizing: border-box;         /* Opera/IE 8+ */
 }

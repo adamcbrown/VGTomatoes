@@ -1,0 +1,14 @@
+<div class="row">
+  <div class="col-xs-4"></div>
+  <div class="col-xs-4">
+    <form action="submit_review" method="POST">
+      <input type="hidden" name="game_id" value=<%=@game.id%>>
+
+      <input type="range" id="score_bar" name="rating" min="0" max="5" value="2">
+      <p id="score_text" class="rating-text">OK</p>
+      <textarea rows="5" name="description"></textarea>
+      <input type="submit" value="Submit">
+    </form>
+  </div>
+  <div class="col-xs-4"></div>
+</div>

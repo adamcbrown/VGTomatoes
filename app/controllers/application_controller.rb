@@ -3,6 +3,10 @@ require 'pry'
 require 'bcrypt'
 require 'date'
 require_relative '../models/user.rb'
+require_relative '../models/console.rb'
+require_relative '../models/game.rb'
+require_relative '../models/company.rb'
+require_relative '../models/review.rb'
 
 class ApplicationController < Sinatra::Base
 
@@ -17,6 +21,25 @@ class ApplicationController < Sinatra::Base
     def user
       return User.find_by_id(session[:user_id])
     end
+
+    def scoreToText(num)
+      num=num.to_i
+      if num==0
+        return "Horrible"
+      elsif num==1
+        return "Bad"
+      elsif num==2
+        return "OK"
+      elsif num==3
+        return "Good"
+      elsif num==4
+        return "Great"
+      elsif num==5
+        return "Amazing"
+      else
+        return "?"
+      end
+    end
   end
 
   get '/' do
@@ -24,8 +47,35 @@ class ApplicationController < Sinatra::Base
   end
 
   get '/game' do
-    @game=Game.find_by_id(params[:game_id])
+    @game=Game.find_by_id(params[:id])
     erb :game
+  end
+
+  get '/create_game' do
+    if(session[:user_id]==User.all[0].id) #Admin account
+      @consoles=Console.all
+      erb :create_game
+    else
+      erb "You do not have access to this page"
+    end
+  end
+
+  get '/create_console' do
+    if(session[:user_id]==User.all[0].id) #Admin account
+      @companies=Company.all
+      erb :create_console
+    else
+      erb "You do not have access to this page"
+    end
+  end
+
+  get '/create_review' do
+    if user!=nil
+      @game=Game.find(params[:game].to_i)
+      erb :create_review
+    else
+      redirect '/login'
+    end
   end
 
   get '/user' do
@@ -119,5 +169,39 @@ class ApplicationController < Sinatra::Base
     session[:store_dob]=params[:date_of_birth]
     session[:store_email]=params[:email]
     redirect '/register' #if there is an error go back to the register page
+  end
+
+  post "/submit_game" do
+    game=Game.new(:name=>params[:name], :description=>params[:description], :img_url=>params[:img], :ESRB_rating=>params[:ESRB_rating], :release_date=>params[:release_date])
+    Console.all.each do |console|
+      if params["console-#{console.abbreviation}".gsub(" ","_").to_sym]
+        game.consoles<<console
+        console.games<<game
+      end
+    end
+    game.save
+
+    redirect '/game?id='+game.id.to_s
+  end
+
+  post "/submit_console" do
+    console=Console.new(:name=>params[:name], :abbreviation=>params[:abbreviation])
+    co=Company.find_by(name: params[:name])
+    console.company=co
+    co.consoles<<console
+    console.save
+  end
+
+  post "/submit_review" do
+    review=Review.new(:rating=>(params[:rating].to_i), :description=>params[:description])
+    game=Game.find(params[:game_id].to_i)
+    review.user=user
+    review.game=game
+    game.reviews<<review
+    user.reviews<<review
+    review.save
+    game.save
+    user.save
+    redirect '/game?id='+game.id.to_s
   end
 end

@@ -1,13 +1,18 @@
-require './config/environment'
+  require './config/environment'
 class Game < ActiveRecord::Base
   has_many :reviews
   has_many :consoles
+  has_many :developers
+  has_many :publishers
+  has_many :composers
+  belongs_to :series
 
+  #Rating scales on a 0 to a 5
   def rating
     rating=0
-    reviews.collect do |review|
+    reviews.each do |review|
       rating+=review.rating
     end
-    return rating/reviews.size
+    return (rating*1.0/reviews.size).round(2)
   end
 end

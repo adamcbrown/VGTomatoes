@@ -1,0 +1,9 @@
+This is for development purposes only
+<form action="submit_console" method="POST">
+  Console Name: <input type="text" name="name"><br>
+  Abbreviation: <input type="text-area" name="abbreviation"><br>
+  <%@companies.each do |company|%>
+    <input type="radio" name="company" value="<%=company.name%>"><%=company.name%><br>
+  <%end%>
+  <input type="submit" value="Submit">
+</form>

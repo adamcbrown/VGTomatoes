@@ -11,18 +11,33 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150419162733) do
+ActiveRecord::Schema.define(version: 20150503170420) do
+
+  create_table "companies", force: :cascade do |t|
+    t.string "name"
+  end
+
+  create_table "consoles", force: :cascade do |t|
+    t.string  "name"
+    t.string  "abbreviation"
+    t.integer "company_id"
+    t.integer "game_id"
+  end
 
   create_table "games", force: :cascade do |t|
-    t.string "name"
-    t.text   "description"
-    t.string "img_url"
-    t.string "ESRB_rating"
+    t.string  "name"
+    t.text    "description"
+    t.string  "img_url"
+    t.string  "ESRB_rating"
+    t.string  "release_date"
+    t.integer "console_id"
   end
 
   create_table "reviews", force: :cascade do |t|
     t.integer "rating"
     t.text    "description"
+    t.integer "game_id"
+    t.integer "user_id"
   end
 
   create_table "users", force: :cascade do |t|
