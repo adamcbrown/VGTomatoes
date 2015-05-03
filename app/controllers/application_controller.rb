@@ -72,7 +72,18 @@ class ApplicationController < Sinatra::Base
   get '/create_review' do
     if user!=nil
       @game=Game.find(params[:game].to_i)
-      erb :create_review
+      canWrite=true
+      user.reviews.each do |review|
+        if review.game==@game
+          canWrite=false
+        end
+      end
+
+      if canWrite
+        erb :create_review
+      else
+        erb "You already wrote a review for this game"
+      end
     else
       redirect '/login'
     end

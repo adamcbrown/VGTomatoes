@@ -4,8 +4,12 @@
     <img src=<%=@game.img_url%>>
   </div>
   <div class="col-xs-6">
+    <%if @game.rating==nil%>
+      <h3>No reviews have been written yet</h3>
+    <%else%>
+      <h3><%="#{@game.rating*20}%   -   #{scoreToText(@game.rating.round)}"%></h3>
+    <%end%>
     <h3><%=@game.name%> (<%=@game.consoles.collect{|c| c.name}.join(", ")%>)</h3>
-    <h3><%="#{@game.rating}/5   -   #{scoreToText(@game.rating.round)}"%>
     <h5><%=@game.description%></h5>
   </div>
 </div>

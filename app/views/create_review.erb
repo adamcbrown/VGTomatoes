@@ -6,7 +6,7 @@
 
       <input type="range" id="score_bar" name="rating" min="0" max="5" value="2">
       <p id="score_text" class="rating-text">OK</p>
-      <textarea rows="5" name="description"></textarea>
+      <textarea rows="5" id="actual_review" name="description" onkeypress="strip();"></textarea>
       <input type="submit" value="Submit">
     </form>
   </div>

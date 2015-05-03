@@ -9,6 +9,9 @@ class Game < ActiveRecord::Base
 
   #Rating scales on a 0 to a 5
   def rating
+    if reviews.size ==0
+      return nil
+    end
     rating=0
     reviews.each do |review|
       rating+=review.rating
