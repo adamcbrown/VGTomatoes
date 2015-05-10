@@ -1,5 +1,4 @@
 require './config/environment'
-require 'pry'
 require 'bcrypt'
 require 'date'
 require_relative '../models/user.rb'
