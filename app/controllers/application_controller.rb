@@ -142,7 +142,7 @@ class ApplicationController < Sinatra::Base
 
   post '/login_user' do
     user=User.find_by(:email=>params[:email]).try(:authenticate, params[:password])
-    if(user==false)#invalid email or password
+    if(user==false||user==nil)#invalid email or password
       session[:error_msg]="Your email or password is invalid"
       redirect '/login'
     else
