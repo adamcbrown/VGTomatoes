@@ -18,4 +18,10 @@ class Game < ActiveRecord::Base
     end
     return (rating*1.0/reviews.size).round(2)
   end
+
+  def <=> other
+    return -1 if rating==nil
+    return 1 if other.rating==nil
+    rating <=> other.rating
+  end
 end

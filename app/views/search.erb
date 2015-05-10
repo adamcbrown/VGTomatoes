@@ -1,0 +1,29 @@
+<h2>Searching for: "<%=@search%>"</h2>
+<p>Search by: <%if @order!="recent"%>
+                <a href=<%="/search?search=#{@search}&order=recent"%>>
+              <%end%>Recent
+              <%if @order!="recent"%>
+                </a>
+              <%end%>
+              |
+
+              <%if @order!="score"%>
+                <a href=<%="/search?search=#{@search}&order=score"%>>
+              <%end%>Score
+              <%if @order!="score"%></a><%end%>
+</p>
+<br>
+
+<%@results.each do |game|%>
+  <a href="/game?id=<%=game.id%>?" class="search-result"><%=game.name%> (<%=game.consoles.collect{|c| c.name}.join(", ")%>)</a>
+  <%if game.rating!=nil%>
+    <h4><%="#{game.rating*20}%   -   #{scoreToText(game.rating.round)}"%></h4>
+  <%else%>
+    <h4>No Reviews Yet</h4>
+  <%end%>
+  <br><br>
+<%end%>
+
+<%if @results.size==0%>
+<h4>No matches were found</h4>
+<%end%>

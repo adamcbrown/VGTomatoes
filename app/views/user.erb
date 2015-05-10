@@ -1,1 +1,6 @@
-The user you are viewing is <%=@viewed_user.username%>
+<h2><%=@viewed_user.username%></h2>
+
+<h3>Reviewed Games</h3>
+<%@reviews.each do |review|%>
+  <h4><a href="/game?id=<%=review.game.id%>?"><%=review.game.name%> (<%=review.game.consoles.collect{|c| c.name}.join(", ")%>)</a> - My Score: <%=review.rating.to_s+"/5"%> (<%=scoreToText(review.rating)%>)</h4>
+<%end%>

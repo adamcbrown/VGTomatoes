@@ -94,6 +94,7 @@ class ApplicationController < Sinatra::Base
     if(@viewed_user==nil)
       erb :error
     else
+      @reviews=Review.where(:user==@viewed_user).order("id desc")
       erb :user
     end
   end
@@ -118,6 +119,19 @@ class ApplicationController < Sinatra::Base
     end
 
     erb :register
+  end
+
+  get '/search' do
+    @search=params[:search]
+    @order=params[:order]
+    unsorted_results=Game.where('name LIKE ?', "%#{params[:search]}%").limit(20)
+    if params[:order]=="score"
+      unsorted_results=unsorted_results.sort { |a,b| a <=> b }.reverse
+    else
+      unsorted_results=unsorted_results.reorder("id desc")
+    end
+    @results=unsorted_results
+    erb :search
   end
 
   get '/login' do
@@ -180,6 +194,10 @@ class ApplicationController < Sinatra::Base
     session[:store_dob]=params[:date_of_birth]
     session[:store_email]=params[:email]
     redirect '/register' #if there is an error go back to the register page
+  end
+
+  post '/search' do
+    redirect "/search?search=#{params[:search]}&order=recent"
   end
 
   post "/submit_game" do
