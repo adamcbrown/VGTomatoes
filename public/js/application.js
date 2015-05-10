@@ -12,9 +12,3 @@ $('#score_bar').change(function(){
     }
     document.getElementById('score_text').innerHTML=text;
 });
-
-//NEVER allow html tags - As of now not begin called
-$("#actual_review").keypress(function(){
-  alert('hi');
-  $(this).innerHTML=$(this).innerHTML.replace('<', '');
-}

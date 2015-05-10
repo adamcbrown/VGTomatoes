@@ -204,6 +204,7 @@ class ApplicationController < Sinatra::Base
   end
 
   post "/submit_review" do
+    params[:description]=params[:description].gsub('<', '').gsub('>', '')
     review=Review.new(:rating=>(params[:rating].to_i), :description=>params[:description])
     game=Game.find(params[:game_id].to_i)
     review.user=user

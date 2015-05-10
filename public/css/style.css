@@ -9,6 +9,10 @@
   background-color: lime;
 }
 
+#search-bar{
+  text-align: right;
+}
+
 .small-box{
   border-style: solid;
   border-radius: 0.2em;
